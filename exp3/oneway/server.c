@@ -39,10 +39,13 @@ int main(){
     }
 
     while(1){
-        if((new_sock = accept(serv_fd,(struct sockaddr *)&addr,addrlen)) < 0){
+        if((new_sock = accept(serv_fd,(struct sockaddr *)&addr,&addrlen)) < 0){
             perror("accept");
             exit(EXIT_FAILURE);
         }
         memset(buffer,0,BUFFER_SIZE);
+        valread = read(new_sock,buffer,BUFFER_SIZE);
+        printf("%s\n",buffer);
+        close(new_sock);
     }
 }
