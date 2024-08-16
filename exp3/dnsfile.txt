@@ -1,0 +1,2 @@
+www.google.com 172.10.10.2
+www.gmail.com 192.12.10.1
