@@ -5,7 +5,7 @@ class DeckDealer:
     def __init__(self,numplayers,round = 1):
         self.deck = [i for i in range(1,101)]
         self.numplayers = numplayers
-        self.round = 5
+        self.round = round
 
     def deal(self):
         self.deck = [i for i in range(1,101)]
@@ -20,7 +20,7 @@ class DeckDealer:
         with open("deck.txt","w") as f:
             for hand in self.deal():
                 string = "".join([str(i) + " " for i in hand])
-                f.write(string + "\n")
+                print(string)
     
 
 
@@ -31,7 +31,6 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python3 deckdealer.py <numplayers> <round>")
         sys.exit()
-
 
     numplayers = int(sys.argv[1])
     round = int(sys.argv[2])

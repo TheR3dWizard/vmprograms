@@ -33,9 +33,10 @@ void client(char* id){
     if(connect(sock,(struct sockaddr*)&addr,sizeof(addr)) < 0){
         perror("Connection failed");
         exit(EXIT_FAILURE);
-    }else{
-        send(sock,id,strlen(id),0);
     }
+    // else{
+    //     send(sock,id,strlen(id),0);
+    // }
 
     while(1){
         printf("Enter message: ");
@@ -93,7 +94,26 @@ void server(){
             printf("New client connected\n");
             FD_SET(new_socket, &master_set);
             if (new_socket > fd_max) fd_max = new_socket;
+            if(count >= 2){
+                char command[2048];
+                snprintf(command, sizeof(command), "python3 deckdealer.py %d %d > output.txt ",count,3);
+                printf(" Command %s\n",command);
+                system(command);
+                FILE *fp = fopen("output.txt", "r");
+                if (fp == NULL) {
+                    perror("Failed to open file");
+                    exit(EXIT_FAILURE);
+                }
 
+                char line[BUFFER_SIZE];
+                while (fgets(line, sizeof(line), fp) != NULL) {
+                    for (i = 0; i < count; i++) {
+                        send(sock_ids[i], line, strlen(line), 0);
+                    }
+                }
+
+                fclose(fp);
+            }
         }
 
         for (i = 0; i <= count; i++) {
