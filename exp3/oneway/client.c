@@ -35,5 +35,9 @@ int main(){
         printf("Enter message: ");
         scanf("%s",msg);
         send(sock,msg,strlen(msg),0);
+        if(strcmp(msg,"exit") == 0){
+            printf("Exiting...\n");
+            break;
+        }
     }
 }

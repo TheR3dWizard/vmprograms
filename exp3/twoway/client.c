@@ -35,8 +35,16 @@ int main(){
         printf("Enter message: ");
         scanf("%s",msg);
         send(sock,msg,strlen(msg),0);
+        if(strcmp(msg,"exit") == 0){
+            printf("Exiting...\n");
+            break;
+        }
         memset(buffer,0,BUFFER_SIZE);
         valread = read(sock,buffer,BUFFER_SIZE);
+        if(strcmp(buffer,"exit") == 0){
+            printf("Exiting...\n");
+            break;
+        }
         printf("%s\n",buffer);
     }
 }

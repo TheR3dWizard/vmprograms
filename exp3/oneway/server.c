@@ -19,7 +19,6 @@ int main(){
         exit(EXIT_FAILURE);
     }
 
-    printf("Waiting for incoming message...\n\n");
 
     if(setsockopt(serv_fd,SOL_SOCKET,SO_REUSEADDR,&opt,sizeof(opt))){
         perror("setsockopt");
@@ -39,6 +38,7 @@ int main(){
     }
 
     while(1){
+        printf("Waiting for client...\n\n");
         if((new_sock = accept(serv_fd,(struct sockaddr *)&addr,&addrlen)) < 0){
             perror("accept");
             exit(EXIT_FAILURE);
@@ -46,8 +46,13 @@ int main(){
         while(1){
             memset(buffer,0,BUFFER_SIZE);
             valread = read(new_sock,buffer,BUFFER_SIZE);
+            if(strcmp(buffer,"exit") == 0){
+                printf("Exiting...\n");
+                break;
+            }
             printf("%s\n",buffer);
         }
+        printf("Client disconnected\n");
         close(new_sock);
     }
 }
