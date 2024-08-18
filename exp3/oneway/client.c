@@ -31,7 +31,9 @@ int main(){
         exit(EXIT_FAILURE);
     }
 
-    printf("Enter message: ");
-    scanf("%s",msg);
-    send(sock,msg,strlen(msg),0);
+    while(1){
+        printf("Enter message: ");
+        scanf("%s",msg);
+        send(sock,msg,strlen(msg),0);
+    }
 }

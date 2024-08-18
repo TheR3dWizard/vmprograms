@@ -43,9 +43,11 @@ int main(){
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        memset(buffer,0,BUFFER_SIZE);
-        valread = read(new_sock,buffer,BUFFER_SIZE);
-        printf("%s\n",buffer);
+        while(1){
+            memset(buffer,0,BUFFER_SIZE);
+            valread = read(new_sock,buffer,BUFFER_SIZE);
+            printf("%s\n",buffer);
+        }
         close(new_sock);
     }
 }
